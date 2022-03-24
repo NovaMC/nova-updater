@@ -22,7 +22,7 @@ public class UpdateData {
     private String packEdition;
 
     private String installerApiUrl;
-    private String modpackMetaUrl;
+    private String modpackBaseUrl;
 
     private String downloadUrl;
 
@@ -37,9 +37,9 @@ public class UpdateData {
             return null;
         }).thenAcceptAsync(localJson -> {
             if (localJson != null) {
-                this.installerApiUrl = localJson.get("installer-api-url").getAsString();
-                this.modpackMetaUrl = localJson.get("modpack-meta-url").getAsString();
                 this.packEdition = localJson.get("edition").getAsString();
+                this.installerApiUrl = localJson.get("installer-api-url").getAsString();
+                this.modpackBaseUrl = localJson.get("modpack-base-url").getAsString();
 
                 String version = localJson.get("version").getAsString();
                 try {
@@ -74,7 +74,7 @@ public class UpdateData {
         // Read and parse version data from remote json
         CompletableFuture.supplyAsync(() -> {
             try {
-                return JsonUtils.readJsonFromUrl(modpackMetaUrl);
+                return JsonUtils.readJsonFromUrl(modpackBaseUrl + packEdition + "/meta.json");
             } catch (IOException e) {
                 UpdateNotifier.logger.error("Failed to read json because of an I/O error", e);
             }
