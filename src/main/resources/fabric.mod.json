@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "updatenotifier",
+  "version": "${version}",
+  "name": "Update Notifier",
+  "description": "An update notifier for modpacks.",
+  "authors": [
+    "Lui798"
+  ],
+  "contact": {
+    "website": "https://github.com/NovaMC",
+    "repo": "https://github.com/NovaMC/updatenotifier"
+  },
+  "license": "GPLv3",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "xyz.novaserver.updatenotifier.client.UpdateNotifier"
+    ]
+  },
+  "mixins": [
+    "updatenotifier.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.13.3",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17"
+  }
+}
