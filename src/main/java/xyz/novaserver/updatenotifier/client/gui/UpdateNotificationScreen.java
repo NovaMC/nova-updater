@@ -2,6 +2,7 @@ package xyz.novaserver.updatenotifier.client.gui;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
@@ -49,7 +50,7 @@ public class UpdateNotificationScreen extends Screen {
                 }
                 if (completed) {
                     try {
-                        String cmd = "java -jar \"" + file.getAbsolutePath() + "\" --install " + UpdateNotifier.UPDATE_DATA.getPackEdition() + " --directory \"" + System.getProperty("user.dir") + "\"";
+                        String cmd = "java -jar \"" + file.getAbsolutePath() + "\" --install " + UpdateNotifier.UPDATE_DATA.getPackEdition() + " --directory \"" + FabricLoader.getInstance().getGameDir().toString() + "\"";
                         UpdateNotifier.logger.info("Command used to run installer:\n" + cmd);
                         Runtime.getRuntime().exec(cmd);
                     } catch (IOException e) {

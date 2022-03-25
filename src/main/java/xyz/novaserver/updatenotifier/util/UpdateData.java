@@ -1,7 +1,5 @@
 package xyz.novaserver.updatenotifier.util;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.SemanticVersion;
 import net.fabricmc.loader.api.VersionParsingException;
@@ -81,13 +79,7 @@ public class UpdateData {
             return null;
         }).thenAcceptAsync(metaJson -> {
             if (metaJson != null) {
-                String version = null;
-                for (JsonElement element : metaJson.getAsJsonArray("editions")) {
-                    JsonObject edition = element.getAsJsonObject();
-                    if (edition.get("name").getAsString().equals(packEdition)) {
-                        version = edition.get("version").getAsString();
-                    }
-                }
+                String version = metaJson.get("version").getAsString();
                 try {
                     this.latestVersion = SemanticVersion.parse(version);
                 } catch (VersionParsingException e) {
