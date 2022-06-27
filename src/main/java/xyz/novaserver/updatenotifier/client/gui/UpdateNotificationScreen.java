@@ -6,7 +6,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import xyz.novaserver.updatenotifier.client.UpdateNotifier;
 import xyz.novaserver.updatenotifier.util.Storage;
@@ -22,7 +22,7 @@ public class UpdateNotificationScreen extends Screen {
     private final Screen parent;
 
     public UpdateNotificationScreen(Screen parent) {
-        super(new TranslatableText("title.updatenotifier.update"));
+        super(Text.translatable("title.updatenotifier.update"));
         this.parent = parent;
     }
 
@@ -31,12 +31,12 @@ public class UpdateNotificationScreen extends Screen {
     }
 
     protected void init() {
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 120, this.height / 6 + 128, 100, 20, new TranslatableText("option.updatenotifier.later").formatted(Formatting.WHITE), (button) -> {
+        this.addDrawableChild(new ButtonWidget(this.width / 2 - 120, this.height / 6 + 128, 100, 20, Text.translatable("option.updatenotifier.later").formatted(Formatting.WHITE), (button) -> {
             UpdateNotifier.UPDATE_SCREEN_SHOWN = true;
             this.client.setScreen(this.parent);
         }));
 
-        this.addDrawableChild(new ButtonWidget(this.width / 2 + 20, this.height / 6 + 128, 100, 20, new TranslatableText("option.updatenotifier.yes").formatted(Formatting.AQUA), (button) -> {
+        this.addDrawableChild(new ButtonWidget(this.width / 2 + 20, this.height / 6 + 128, 100, 20, Text.translatable("option.updatenotifier.yes").formatted(Formatting.AQUA), (button) -> {
             File file = Storage.getStorageDirectory().resolve(Storage.UPDATER_FILENAME).toFile();
             UpdateData.Downloader download = new UpdateData.Downloader(UpdateNotifier.UPDATE_DATA.getDownloadUrl(), file);
 
@@ -64,11 +64,11 @@ public class UpdateNotificationScreen extends Screen {
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         this.renderBackground(matrices);
-        drawCenteredText(matrices, this.textRenderer, new TranslatableText("description.updatenotifier.updateAvailable"), this.width / 2, row(1), 5636095);
+        drawCenteredText(matrices, this.textRenderer, Text.translatable("description.updatenotifier.updateAvailable"), this.width / 2, row(1), 5636095);
         for (int i = 1; i <= 2; i++) {
-            drawCenteredText(matrices, this.textRenderer, new TranslatableText("description.updatenotifier.update" + i), this.width / 2, row(i + 2), 16777215);
+            drawCenteredText(matrices, this.textRenderer, Text.translatable("description.updatenotifier.update" + i), this.width / 2, row(i + 2), 16777215);
         }
-        drawCenteredText(matrices, this.textRenderer, new TranslatableText("description.updatenotifier.updateDownload"), this.width / 2, row(6), 16777215);
+        drawCenteredText(matrices, this.textRenderer, Text.translatable("description.updatenotifier.updateDownload"), this.width / 2, row(6), 16777215);
         super.render(matrices, mouseX, mouseY, delta);
     }
 
